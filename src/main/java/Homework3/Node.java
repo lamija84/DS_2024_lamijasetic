@@ -3,10 +3,11 @@ package Homework3;
 import java.util.ArrayList;
 
 public class Node {
+    // implement the relevant properties, constructor and methods
     String key;
     ArrayList<Entry> values;
     Node left, right;
-    boolean color; // true for red, false for black
+    boolean color;
 
     public Node(String key, Entry entry, boolean color) {
         this.key = key;
@@ -15,3 +16,4 @@ public class Node {
         this.color = color;
     }
 }
+

@@ -1,7 +1,14 @@
 package Homework3;
 
-public class Entry {
-    String surname, name, streetAddress, city, postcode, country, phoneNumber;
+public class Entry implements Comparable<Entry> {
+    // implement the relevant data attributes
+    private String surname;
+    private String name;
+    private String streetAddress;
+    private String city;
+    private String postcode;
+    private String country;
+    private String phoneNumber;
 
     public Entry(String surname, String name, String streetAddress, String city, String postcode, String country, String phoneNumber) {
         this.surname = surname;
@@ -14,8 +21,48 @@ public class Entry {
     }
 
     @Override
-    public String toString() {
-        return String.format("Name: %s, %s, Address: %s, %s, %s, %s, Phone: %s",
-                surname, name, streetAddress, city, postcode, country, phoneNumber);
+    public String toString(){
+        return  "\nName: " + this.name
+                + "\nAddress: " + this.streetAddress
+                + "\nCity: " + this.city
+                + "\nPost Code: " + this.postcode
+                + "\nCountry: " + this.country
+                + "\nPhone Number: " + this.phoneNumber + "\n";
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @Override
+    public int compareTo(Entry other) {
+        int surnameComparison = this.surname.compareTo(other.surname);
+        if (surnameComparison != 0) {
+            return surnameComparison;
+        }
+        return this.name.compareTo(other.name);
     }
 }

@@ -5,26 +5,53 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PhonebookV2 {
-    public static void main(String[] args) throws FileNotFoundException {
-        RedBlackTree phonebook = FileUtils.readFile("raw_phonebook_data.csv"); // Adjust the file path accordingly
+    public static void main(String[] args) {
+
+        String RED = "\u001B[31m";
+        String RESET = "\u001B[0m";
+
+
+
         Scanner scanner = new Scanner(System.in);
-        String input;
+        RedBlackTree tree = null;
+        try {
+            tree = FileUtils.readFile("raw_phonebook_data1.csv");
+        } catch (FileNotFoundException e) {
+            System.out.println("No file: " + e.getMessage());
+            scanner.close();
+            return;
+        }
+        System.out.println("\nLoading entities...");
+        System.out.println("=============================================================");
+        System.out.println("System is ready!.");
+
+
+
+
+        int[] edgeCounts = tree.countRedAndBlackEdges();
+        System.out.println("Total" +  RED + " red edges" + " in the tree: "+RESET + edgeCounts[1]);
+        System.out.println("Total black edges in the tree: " + edgeCounts[0] + "\n");
 
         while (true) {
-            System.out.println("Enter 'Surname, Name' to search or '-1' to exit:");
-            input = scanner.nextLine();
-            if (input.equals("-1")) break;
+            System.out.print("Enter the name you want to to search (-1 to exit): ");
+            String input = scanner.nextLine();
+            if (input.equals("-1")) {
+                System.out.println("Thanks for using the phonebook. \n");
+                break;
+            }
 
-            ArrayList<Entry> results = phonebook.get(input);
-            if (results != null) {
-                System.out.println(results.size() + " entries found:");
-                for (Entry entry : results) {
+            ArrayList<Entry> entries = tree.get(input);
+            if(entries != null) {
+                System.out.println("Entries found: " + entries.size() + "\n");
+                for (Entry entry : entries) {
                     System.out.println(entry);
                 }
             } else {
-                System.out.println("No entries found.");
+                System.out.println("No entries with the name in phonebook. \n");
             }
         }
+
         scanner.close();
     }
 }
+
